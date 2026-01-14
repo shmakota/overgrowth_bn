@@ -93,28 +93,32 @@ end
 ---@param tall_grass_id TerIntId
 ---@param young_tree_id TerIntId
 mod.apply_road_overlay = function(map, p, heat, dirt_id, grass_id, dead_grass_id, tall_grass_id, young_tree_id)
-  if heat < 0.15 then
+  if heat < 0.25 then
     if gapi.rng(1, 100) <= 80 then
       map:set_ter_at(p, dirt_id)
     end
-  elseif heat < 0.25 then
+  elseif heat < 0.35 then
     if gapi.rng(1, 100) <= 80 then
       local target = gapi.rng(1, 5) == 1 and dead_grass_id or grass_id
       map:set_ter_at(p, target)
     end
-  elseif heat < 0.35 then
-    if gapi.rng(1, 100) <= 80 then
-      map:set_ter_at(p, tall_grass_id)
-    else
-      map:set_ter_at(p, young_tree_id)
-    end
   elseif heat < 0.45 then
-    if gapi.rng(1, 100) <= 5 then
+    if gapi.rng(1, 100) <= 50 then
+      map:set_ter_at(p, tall_grass_id)
+    elseif gapi.rng(1, 100) <= 75 then
       map:set_ter_at(p, young_tree_id)
+    else 
+      map:set_ter_at(p, grass_id)
     end
   elseif heat < 0.55 then
-    if gapi.rng(1, 199) <= 5 then
-      map:set_ter_at(p, tall_grass_id)
+    if gapi.rng(1, 100) <= 5 then
+	    if gapi.rng(1, 100) <= 50 then
+	      map:set_ter_at(p, tall_grass_id)
+	    elseif gapi.rng(1, 100) <= 75 then
+	      map:set_ter_at(p, young_tree_id)
+	    else 
+	      map:set_ter_at(p, grass_id)
+	    end
     end
   elseif heat < 0.65 then
     if gapi.rng(1, 100) <= 5 then
@@ -245,8 +249,8 @@ mod.on_mapgen_postprocess = function(params)
         end
       end
 
-      if ter == grass_id then
-        if gapi.rng(1, 100) <= 15 then
+      if ter == grass_id or ter == dirt_id then
+        if gapi.rng(1, 100) <= 2 then
           local roll = gapi.rng(1, 3)
           if roll == 1 then
             map:set_ter_at(p, tall_grass_id)
