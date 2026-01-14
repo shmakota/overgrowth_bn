@@ -1,0 +1,12 @@
+[
+  {
+    "type": "MOD_INFO",
+    "id": "overgrowth",
+    "name": "<color_green>Overgrowth</color>",
+    "authors": [ "Kota" ],
+    "description": "Introduces more nature reclaiming urban areas by adding dirt patches, grass, and saplings over roads and sidewalks. Also smashes out windows, doors, fences, and similar terrain.",
+    "category": "content",
+    "lua_api_version": 2,
+    "dependencies": [ "bn" ]
+  }
+]
